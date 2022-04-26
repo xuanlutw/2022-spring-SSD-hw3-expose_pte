@@ -1,5 +1,5 @@
 CC = aarch64-linux-gnu-gcc
-CFLAGS = -Wall -static
+CFLAGS = -Wall
 
 all: test hw3-test hw3-exploit hw3-sheep write_tmp
 
