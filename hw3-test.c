@@ -20,9 +20,9 @@ int main(int argc, char *argv[]) {
     }
 
     // Align pmd
-    begin_va = atol(argv[3]);
+    begin_va = (unsigned long)strtol(argv[3], NULL, 16);
     begin_va = begin_va - (begin_va & ((1 << 21) - 1));
-    end_va   = atol(argv[4]) - 1;
+    end_va   = (unsigned long)strtol(argv[4], NULL, 16) - 1;
     end_va   = end_va - (end_va & ((1 << 21) - 1)) + (1 << 21);
 
     // Allocate space
