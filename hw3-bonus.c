@@ -72,6 +72,8 @@ int main (int argc, char* argv[]) {
     ptep    = expose_pte_single(getpid(), (unsigned long)sc);
     pte_nop = ptep[(((unsigned long)sc >> 12) % 512)];
     pte_sc  = ptep[(((unsigned long)sc >> 12) % 512) + 1];
+    ptep[(((unsigned long)sc >> 12) % 512)]     = 0;
+    ptep[(((unsigned long)sc >> 12) % 512) + 1] = 0;
 
     // Expose sheep's pte
     ptep = expose_pte_single(atoi(argv[1]), target_text_va);
